@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#090b1d">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>Day ↔ Night</title>
+<style>
+  html,body{margin:0;width:100%;height:100%;background:#000;overflow:hidden}
+  body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;touch-action:manipulation}
+  #stage{position:fixed;inset:0;display:grid;place-items:center;background:#000}
+  .scene{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:opacity .62s ease;user-select:none;-webkit-user-drag:none}
+  #night{opacity:0}
+  #hotspot{position:absolute;width:min(44vw,42vh);height:min(44vw,42vh);border-radius:50%;left:50%;top:23%;transform:translate(-50%,-50%);z-index:5;background:transparent}
+  #hint{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:10;color:rgba(255,255,255,.7);font-size:13px;letter-spacing:.3px;text-align:center;transition:opacity .6s}
+  #stage.night #day{opacity:0}
+  #stage.night #night{opacity:1}
+  #stage.night #hint{opacity:0}
+</style>
+</head>
+<body>
+<div id="stage" aria-label="Interactive Day and Night artwork">
+  <img id="day" class="scene" src="day.jpeg" alt="Day artwork">
+  <img id="night" class="scene" src="night.png" alt="Moonlit artwork">
+  <button id="hotspot" aria-label="Switch between sun and moon"></button>
+  <div id="hint">Tap the sun or moon</div>
+</div>
+<script>
+const stage=document.getElementById('stage');
+document.getElementById('hotspot').addEventListener('click',()=>stage.classList.toggle('night'));
+</script>
+</body>
+</html>
